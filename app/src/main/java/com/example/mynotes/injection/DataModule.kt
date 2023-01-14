@@ -2,7 +2,7 @@ package com.example.mynotes.injection
 
 import android.content.Context
 import com.crocodic.core.helper.okhttp.SSLTrust
-import com.example.mynotes.api.ApiService
+//import com.example.mynotes.api.ApiService
 import com.example.mynotes.data.AppDatabase
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
@@ -54,14 +54,14 @@ class DataModule {
         return okHttpClient.build()
     }
 
-    @Provides
-    fun provideApiService(okHttpClient: OkHttpClient): ApiService{
-        return Retrofit.Builder()
-            .baseUrl("")
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .client(okHttpClient)
-            .build().create(ApiService::class.java)
-
-    }
+//    @Provides
+//    fun provideApiService(okHttpClient: OkHttpClient): ApiService{
+//        return Retrofit.Builder()
+//            .baseUrl("")
+//            .addConverterFactory(ScalarsConverterFactory.create())
+//            .client(okHttpClient)
+//            .build().create(ApiService::class.java)
+//
+//    }
 
 }

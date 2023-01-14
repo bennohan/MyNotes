@@ -4,7 +4,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
-interface ApiService {
+//interface ApiService {
 
 //    @FormUrlEncoded
 //    @POST("")
@@ -13,4 +13,4 @@ interface ApiService {
 //        @Field("password") password: String?
 //        ) : String
 
-}
+//}
