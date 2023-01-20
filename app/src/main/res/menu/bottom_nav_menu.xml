@@ -4,6 +4,7 @@
     android:title="Home"
     android:icon="@drawable/ic_baseline_home_24"
     android:id="@+id/btn_home"/>
+
     <item
         android:title="Profile"
         android:icon="@drawable/ic_baseline_person_24"

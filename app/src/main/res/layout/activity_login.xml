@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -21,17 +22,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular"
                 android:text="My Notes"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_30ssp"
-                android:fontFamily="@font/poppinsregular"/>
+                android:textSize="@dimen/_30ssp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Please login with your email and password"
                 android:fontFamily="@font/poppinsregular"
+                android:text="Please login with your email and password"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp" />
 
@@ -43,12 +44,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_35sdp"
+            android:fontFamily="@font/poppinsregular"
             android:text="Email"
             android:textColor="#1767B3"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            android:fontFamily="@font/poppinsregular"/>
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <EditText
             android:id="@+id/et_email"
@@ -58,8 +59,8 @@
             android:layout_marginTop="20dp"
             android:autofillHints="emailAddress"
             android:background="@drawable/edittext_border"
-            android:textAlignment="center"
             android:hint="Masukan Email"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_email" />
@@ -68,14 +69,14 @@
             android:id="@+id/tv_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_100sdp"
-            android:text="Password"
             android:layout_marginStart="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_100sdp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="Password"
             android:textSize="@dimen/_15ssp"
-            app:layout_constraintTop_toTopOf="@id/tv_email"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteX="16dp"
-            android:fontFamily="@font/poppinsregular"/>
+            app:layout_constraintTop_toTopOf="@id/tv_email"
+            tools:layout_editor_absoluteX="16dp" />
 
         <EditText
             android:id="@+id/et_password"
@@ -86,8 +87,8 @@
             android:layout_marginEnd="28dp"
             android:autofillHints="password"
             android:background="@drawable/edittext_border"
-            android:textAlignment="center"
             android:hint="Masukan Password"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_password" />
 
