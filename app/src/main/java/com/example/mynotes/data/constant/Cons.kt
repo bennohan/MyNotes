@@ -5,4 +5,7 @@ object Cons {
         const val API_TOKEN ="api_token"
         const val API_TOKEN_EXPIRED ="api_token_expired"
     }
+    object NOTE{
+        const val NOTE = "note"
+    }
 }

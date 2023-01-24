@@ -13,8 +13,10 @@ interface UserDao : CoreDao<User> {
 
 
     @Query("SELECT * FROM User WHERE idRoom = 1 ")
-    fun getUser() : LiveData<User?>
+    fun getUser() : LiveData<User>
 
     @Query("SELECT EXISTS (SELECT 1 FROM User WHERE idRoom = 1)")
     suspend fun isLogin(): Boolean
+
+
 }

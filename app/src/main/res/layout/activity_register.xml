@@ -118,6 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_25sdp"
             android:layout_marginTop="@dimen/_25sdp"
+            android:inputType="textPassword"
             android:text="Confirm Password"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintStart_toStartOf="parent"

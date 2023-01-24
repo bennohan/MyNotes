@@ -11,9 +11,11 @@ import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import com.crocodic.core.base.activity.NoViewModelActivity
+import com.crocodic.core.extension.openActivity
 import com.example.mynotes.R
 import com.example.mynotes.base.BaseActivity
 import com.example.mynotes.databinding.ActivityEditProfileBinding
+import com.example.mynotes.ui.profile.ProfileActivity
 import java.io.File
 import javax.xml.transform.Source
 
@@ -24,6 +26,12 @@ class EditProfileActivity : NoViewModelActivity<ActivityEditProfileBinding>(R.la
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        photoFile = getPhotoFile()
+
+        binding.ivBack.setOnClickListener {
+            openActivity<ProfileActivity>{
+
+            }
+        }
 
     }
 //Gallery , photo not Done yet

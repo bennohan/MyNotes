@@ -53,7 +53,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
             val password = binding.etPassword.textOf()
 
             viewModel.login(email, password)
-
         }
 
         lifecycleScope.launch {
