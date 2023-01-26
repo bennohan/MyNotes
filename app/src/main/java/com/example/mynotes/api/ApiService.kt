@@ -27,6 +27,11 @@ interface ApiService {
         @Field("confirmPassword") confirmPassword: String?
     ): String
 
+    //Create Note
+    @FormUrlEncoded
+    @POST("note/")
+    suspend fun createNote():String
+
     //Get Token
     @GET("user/get-token")
     suspend fun getToken(): String
@@ -41,8 +46,6 @@ interface ApiService {
 
     // Get Note
     @GET("note/")
-    suspend fun getNote(
-        @Query("note") note: Int?
-    ): String
+    suspend fun getNote(): String
 
 }

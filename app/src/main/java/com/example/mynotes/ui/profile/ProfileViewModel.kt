@@ -1,6 +1,6 @@
 package com.example.mynotes.ui.profile
 
-import androidx.lifecycle.viewModelScope
+import  androidx.lifecycle.viewModelScope
 import com.example.mynotes.api.ApiService
 import com.example.mynotes.base.BaseViewModel
 import com.example.mynotes.data.User
@@ -30,5 +30,5 @@ class ProfileViewModel @Inject constructor(
         logout()
     }
 
-    }
+}
 

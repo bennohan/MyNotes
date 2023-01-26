@@ -43,9 +43,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
             }
         }
         binding.btnLogin.setOnClickListener {
-            if (binding.etEmail.isEmptyRequired(R.string.mustFill) || binding.etPassword.isEmptyRequired(
-                    R.string.mustFill
-                )
+            if (binding.etEmail.isEmptyRequired(R.string.mustFill) || binding.etPassword.isEmptyRequired(R.string.mustFill)
             ) {
                 return@setOnClickListener
             }

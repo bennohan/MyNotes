@@ -12,7 +12,7 @@ data class Note(
     @SerializedName("title")
     val titile : String?,
     @Expose
-    @SerializedName("note")
+    @SerializedName("content")
     val note: String?,
     @Expose
     @SerializedName("Date")
