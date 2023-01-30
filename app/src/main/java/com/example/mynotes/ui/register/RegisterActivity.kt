@@ -1,6 +1,5 @@
 package com.example.mynotes.ui.register
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +15,6 @@ import com.example.mynotes.databinding.ActivityRegisterBinding
 import com.example.mynotes.ui.home.HomeActivity
 import com.example.mynotes.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject

@@ -63,7 +63,6 @@ class RegisterViewModel @Inject constructor(
                     }
                 })
 
-
         }
 
     }

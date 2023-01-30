@@ -1,11 +1,9 @@
 package com.example.mynotes.ui.login
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.crocodic.core.api.ApiCode
 import com.crocodic.core.api.ApiObserver
 import com.crocodic.core.api.ApiResponse
-import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.data.CoreSession
 import com.crocodic.core.extension.toObject
 import com.example.mynotes.api.ApiService
@@ -41,9 +39,14 @@ class LoginViewModel @Inject constructor(
                     Timber.d("DataLogin : $response")
 
                     val data = response.getJSONObject(ApiCode.DATA).toObject<User>(gson)
+                    val token = response.getString("token")
+                    session.setValue(Cons.TOKEN.API_TOKEN, token)
 //                    Timber.d("DataUser : $data")
                     userDao.insert(data.copy(idRoom = 1))
                     _apiResponse.send(ApiResponse().responseSuccess("Sukses"))
+                    session.setValue(Cons.USER.EMAIL,email)
+                    session.setValue(Cons.USER.PASSWORD,password)
+                    session.setValue(Cons.USER.PROFILE,"login")
 
                 }
 

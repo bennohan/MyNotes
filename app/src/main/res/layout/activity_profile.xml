@@ -1,131 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <data>
-        <variable
-            name="user"
-            type="com.example.mynotes.data.User" />
-    </data>
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="user"-->
+<!--            type="com.example.mynotes.data.User" />-->
+<!--    </data>-->
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/_8sdp"
         tools:context=".ui.profile.ProfileActivity">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_120sdp"
-                android:layout_marginEnd="148dp"
-                android:fontFamily="@font/poppinsregular"
-                android:text="Profile"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_17ssp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iv_back"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.appcompat.widget.Toolbar>
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_marginTop="32dp"
-            android:src='@{user.photo}'
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-        <TextView
-            android:id="@+id/tv_name"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_add"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/poppinsregular"
-            android:text='@{user.name}'
-            android:textColor="@color/black"
-            android:textSize="@dimen/_20ssp"
-            tools:text="Name"
+            android:src="@drawable/ic_baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppinsregular"
-            android:text='@{user.email}'
-            android:textSize="@dimen/_18ssp"
-            tools:text ="email"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+            app:layout_anchor="@id/coordinator"
+            android:layout_margin="@dimen/_8sdp"/>
 
 
-
-        <LinearLayout
-            android:id="@+id/btn_editProfile"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/_35sdp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_email">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/btmAppbar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Edit Profile"
-                android:textSize="@dimen/_15ssp" />
+                android:layout_gravity="bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_210sdp"
-                android:src="@drawable/ic_baseline_person_24" />
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottomNavigationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    app:layout_anchor="@+id/bottomNavigationView"
+                    app:menu="@menu/bottom_nav_menu" />
 
-        </LinearLayout>
+            </com.google.android.material.bottomappbar.BottomAppBar>
 
-        <LinearLayout
-            android:gravity="center"
-            android:id="@+id/btn_logout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_35sdp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_editProfile">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Logout"
-                android:textColor="#FF0000"
-                android:textSize="@dimen/_15ssp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_230sdp"
-                android:src="@drawable/ic_baseline_logout_24" />
-
-        </LinearLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

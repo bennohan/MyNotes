@@ -1,11 +1,6 @@
 package com.example.mynotes.api
 
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.PATCH
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -30,7 +25,10 @@ interface ApiService {
     //Create Note
     @FormUrlEncoded
     @POST("note/")
-    suspend fun createNote():String
+    suspend fun createNote(
+        @Field("title") title : String,
+        @Field("content") content : String
+    ):String
 
     //Get Token
     @GET("user/get-token")
@@ -41,8 +39,11 @@ interface ApiService {
     suspend fun getProfile(): String
 
     //Update Profile
-    @PATCH("update-profile")
-    suspend fun updateProfile()
+    @FormUrlEncoded
+    @PATCH("user/profile")
+    suspend fun updateProfile(
+        @Field("name") name: String,
+    ): String
 
     // Get Note
     @GET("note/")
