@@ -9,8 +9,7 @@ import com.example.mynotes.ui.login.LoginActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
-//    @Inject
-//    lateinit var session: CoreSession
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -13,7 +13,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ProfileFragment">
+        tools:context=".ui.profile.ProfileFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                     android:fontFamily="@font/poppinsregular"
                     android:text="Profile"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_17ssp"
+                    android:textSize="@dimen/_15ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iv_back"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
             </androidx.appcompat.widget.Toolbar>
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_profile"
+                android:id="@+id/iv_profilePF"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:layout_gravity="center"
@@ -88,7 +88,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_marginTop="@dimen/_35sdp"
                 android:clickable="true"
                 android:focusable="true"
@@ -126,7 +126,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_marginTop="@dimen/_35sdp"
                 android:clickable="true"
                 android:focusable="true"

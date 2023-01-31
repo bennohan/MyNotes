@@ -4,14 +4,13 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.crocodic.core.extension.openActivity
-import com.example.mynotes.HomeFragment
-import com.example.mynotes.ProfileFragment
 import com.example.mynotes.R
 import com.example.mynotes.base.BaseActivity
 import com.example.mynotes.data.Note
 import com.example.mynotes.data.UserDao
 import com.example.mynotes.databinding.ActivityHomeBinding
 import com.example.mynotes.ui.addNote.AddActivity
+import com.example.mynotes.ui.profile.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,6 +26,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
 
     private  var profileFragment = ProfileFragment()
     private  var homeFragment = HomeFragment()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

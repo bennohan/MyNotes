@@ -2,20 +2,18 @@ package com.example.mynotes.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.crocodic.core.api.*
+import com.crocodic.core.api.ApiCode
+import com.crocodic.core.api.ApiObserver
+import com.crocodic.core.api.ApiResponse
 import com.crocodic.core.extension.toList
 import com.example.mynotes.api.ApiService
 import com.example.mynotes.base.BaseViewModel
 import com.example.mynotes.data.Note
 import com.example.mynotes.data.UserDao
 import com.google.gson.Gson
-import com.google.protobuf.Api
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,9 +27,11 @@ class HomeViewModel @Inject constructor(
 
     var note = MutableLiveData<List<Note>>()
 
-    fun getNote() = viewModelScope.launch {
+    fun getNote(
+        search: String? = null
+    ) = viewModelScope.launch {
         _apiResponse.send(ApiResponse().responseLoading())
-        ApiObserver({ apiService.getNote() }, false, object : ApiObserver.ResponseListener {
+        ApiObserver({ apiService.getNote(search) }, false, object : ApiObserver.ResponseListener {
             override suspend fun onSuccess(response: JSONObject) {
                 val data =
                         response.getJSONArray(ApiCode.DATA).toList<Note>(gson)

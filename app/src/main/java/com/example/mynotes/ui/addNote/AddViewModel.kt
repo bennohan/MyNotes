@@ -21,6 +21,7 @@ class AddViewModel @Inject constructor(
     private val gson: Gson,
     private val userDao: UserDao
 ) : BaseViewModel() {
+    //Create Note
     fun createNote(title:String,content:String) = viewModelScope.launch {
         _apiResponse.send(ApiResponse().responseLoading())
         ApiObserver({apiService.createNote(title, content)},
@@ -29,12 +30,30 @@ class AddViewModel @Inject constructor(
             override suspend fun onSuccess(response: JSONObject) {
                 _apiResponse.send(ApiResponse().responseSuccess("create Note Success"))
             }
-
             override suspend fun onError(response: ApiResponse) {
                 super.onError(response)
                 _apiResponse.send(ApiResponse().responseError())
             }
         }
+        )
+    }
+
+    //Update Note
+    fun updateNote(title:String, content:String) = viewModelScope.launch {
+        _apiResponse.send(ApiResponse().responseLoading())
+        ApiObserver({apiService.updateNote(title,content)},
+        false,
+            object : ApiObserver.ResponseListener{
+                override suspend fun onSuccess(response: JSONObject) {
+
+                    _apiResponse.send(ApiResponse().responseSuccess(" Note Updated"))
+                }
+
+                override suspend fun onError(response: ApiResponse) {
+                    super.onError(response)
+                    _apiResponse.send(ApiResponse().responseError())
+                }
+            }
         )
     }
 

@@ -11,6 +11,8 @@ import com.crocodic.core.extension.textOf
 import com.crocodic.core.extension.tos
 import com.example.mynotes.R
 import com.example.mynotes.base.BaseActivity
+import com.example.mynotes.data.Note
+import com.example.mynotes.data.constant.Cons
 import com.example.mynotes.databinding.ActivityAddBinding
 import com.example.mynotes.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,12 +23,24 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.acti
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val note : Note? = intent.getParcelableExtra(Cons.NOTE.NOTE)
+
+        binding.data = note
+
+
         //Back Button
         binding.ivBack.setOnClickListener {
             openActivity<HomeActivity> {
                 finish()
             }
         }
+
+//        //btn eddit
+//        binding.btnEdit.setOnClickListener {
+//            val title = binding.etTitle.textOf()
+//            val content = binding.etContent.textOf()
+//            viewModel.updateNote(title, content)
+//        }
 
         //Button Save
         binding.ivCheck.setOnClickListener {
@@ -41,6 +55,7 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.acti
             val content = binding.etContent.textOf()
 
             viewModel.createNote(title, content)
+//            viewModel.updateNote(title, content)
         }
 
         lifecycleScope.launch {

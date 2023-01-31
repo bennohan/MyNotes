@@ -47,6 +47,15 @@ interface ApiService {
 
     // Get Note
     @GET("note/")
-    suspend fun getNote(): String
+    suspend fun getNote(
+        @Query("search") search: String?
+    ): String
 
+    //UpdateNote
+    @FormUrlEncoded
+    @PATCH("note/:id")
+    suspend fun updateNote(
+        @Field("title") title: String,
+        @Field("content") content: String
+    ) : String
 }

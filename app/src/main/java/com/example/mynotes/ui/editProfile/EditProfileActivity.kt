@@ -38,7 +38,7 @@ class EditProfileActivity :
 
 //        tokenAPI()
 
-
+        //Button Back
         binding.ivBack.setOnClickListener {
             openActivity<ProfileActivity> {
             }
@@ -53,6 +53,7 @@ class EditProfileActivity :
             viewModel.UpdateProfile(name)
         }
 
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
@@ -62,7 +63,7 @@ class EditProfileActivity :
                             ApiStatus.SUCCESS -> {
                                 tos(it.message ?: "Berhasil Update Profile")
                                 loadingDialog.dismiss()
-                                openActivity<ProfileActivity>()
+                                openActivity<EditProfileActivity>()
                                 finish()
                             }
                             ApiStatus.ERROR -> {
@@ -80,19 +81,6 @@ class EditProfileActivity :
 
     }
 
-//    fun tokenAPI() {
-//        val dateNow = DateTimeHelper().dateNow()
-//        val tokenInit = "$dateNow|rahasia"
-//        val tokenEncrypt = tokenInit.base64encrypt()
-//        session.setValue(Cons.TOKEN.API_TOKEN, tokenEncrypt)
-//
-//        Timber.d("Check Token : $tokenInit")
-//
-//        lifecycleScope.launch {
-//            viewModel.getToken()
-//        }
-//
-//    }
 
 
     //Gallery , photo not Done yet

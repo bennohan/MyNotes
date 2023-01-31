@@ -1,4 +1,4 @@
-package com.example.mynotes
+package com.example.mynotes.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.crocodic.core.extension.openActivity
+import com.example.mynotes.R
 import com.example.mynotes.base.BaseFragment
+import com.example.mynotes.data.User
 import com.example.mynotes.data.UserDao
 import com.example.mynotes.databinding.FragmentProfileBinding
 import com.example.mynotes.ui.editProfile.EditProfileActivity
 import com.example.mynotes.ui.login.LoginActivity
-import com.example.mynotes.ui.profile.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,28 +28,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     @Inject
     lateinit var userDao: UserDao
 
+    private lateinit var user: User
+
     private val viewModel by activityViewModels<ProfileViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-//        lifecycleScope.launch {
-//            viewModel.getUser.observe(requireActivity()) { data ->
-//                data.let {
-//                    binding?.user = it
-//
-//                    binding?.tvName?.text = it.name
-//                    binding?.tvEmail?.text = it.email
-//                }
-//
-//            }
-//            repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                launch {
-//                }
-//            }
-//
-//        }
 
     }
 
@@ -55,7 +44,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     ): View? {
         return inflater.inflate(R.layout.fragment_profile, container, false)
 
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,6 +53,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         val btnEditProfile = view.findViewById<Button>(R.id.btnEditProfile)
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
         val tvnamePF = view.findViewById<TextView>(R.id.tv_namePF)
+        val tvemailPF = view.findViewById<TextView>(R.id.tv_emailPF)
+//        val ivprofilePF = view.findViewById<ImageView>(R.id.iv_profilePF)
 
         //EditProfile Button
         btnEditProfile.setOnClickListener {
@@ -80,28 +70,32 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             }
         }
 
-            viewModel.getUser.observe(viewLifecycleOwner) {
-//                Timber.d("adaData")
-                binding?.userfr = it
+//        viewModel.getUser.observe(viewLifecycleOwner) {
+////                Timber.d("adaData")
+//            binding?.userfr = it
+//        }
+
+        lifecycleScope.launch {
+            viewModel.getUser.observe(requireActivity()) { data ->
+                data.let {
+                    user = it
+                    tvnamePF.text = it?.name
+                    tvemailPF.text = it?.email
+//                    ivprofilePF.drawable = it.photo
+
+                }
+
+            }
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                }
             }
 
+        }
 
 
     }
 
-//    private fun initClick() {
-//        binding?.btnTest?.setOnClickListener{
-//            requireContext().tos("Tesst Click")
-//            val intentedit = Intent(requireContext(), MainActivity::class.java)
-//            startActivity(intentedit)
-//
-//        }
-//
-//
-//        binding?.btnEditProfile?.setOnClickListener {
-//            activity?.openActivity<AddActivity> {}
-//        }
-//    }
 
 
 }

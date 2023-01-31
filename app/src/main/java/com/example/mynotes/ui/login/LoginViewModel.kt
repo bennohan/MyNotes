@@ -46,7 +46,7 @@ class LoginViewModel @Inject constructor(
                     _apiResponse.send(ApiResponse().responseSuccess("Sukses"))
                     session.setValue(Cons.USER.EMAIL,email)
                     session.setValue(Cons.USER.PASSWORD,password)
-                    session.setValue(Cons.USER.PROFILE,"login")
+                    session.setValue(Cons.USER.PROFILE,"Login")
 
                 }
 

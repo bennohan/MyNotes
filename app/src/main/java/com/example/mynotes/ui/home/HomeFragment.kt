@@ -1,4 +1,4 @@
-package com.example.mynotes
+package com.example.mynotes.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,13 +12,14 @@ import com.crocodic.core.base.adapter.CoreListAdapter
 import com.crocodic.core.base.adapter.CoreListAdapter.Companion.get
 import com.crocodic.core.extension.openActivity
 import com.crocodic.core.extension.tos
+import com.example.mynotes.R
 import com.example.mynotes.base.BaseFragment
 import com.example.mynotes.data.Note
 import com.example.mynotes.data.UserDao
+import com.example.mynotes.data.constant.Cons
 import com.example.mynotes.databinding.FragmentHomeBinding
 import com.example.mynotes.databinding.ItemNoteBinding
 import com.example.mynotes.ui.addNote.AddActivity
-import com.example.mynotes.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,16 +31,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     @Inject
     lateinit var userDao: UserDao
 
+//    private val runnable by lazy {
+//        Runnable {
+////            refreshData()
+//        }
+//    }
+
+//    private val handler = Handler(Looper.getMainLooper())
+
+    private var keyword: String? = null
+
     private val viewModel by activityViewModels<HomeViewModel>()
 
     private var note = ArrayList<Note?>()
 
     private lateinit var rvNote: View
 
+    private lateinit var selectedNote: Note
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
     }
 
@@ -47,23 +59,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         val rvNote = view.findViewById<RecyclerView>(R.id.rv_note)
+//        val searchView = view.findViewById<SearchView>(R.id.searchView)
 
         getNote()
 
-//        binding?.btnTest?.setOnClickListener {
-//            activity?.openActivity<MainActivity> {
-//                activity?.finish()
-//            }
-//        }
 
-
-       rvNote.adapter = CoreListAdapter<ItemNoteBinding, Note>(R.layout.item_note)
+        //Adapter Recycler View
+        rvNote.adapter = CoreListAdapter<ItemNoteBinding, Note>(R.layout.item_note)
             .initItem(note) { position, data ->
                 activity?.tos("tes")
-                activity?.openActivity<AddActivity> { }
+                activity?.openActivity<AddActivity> {
+                    putExtra(Cons.NOTE.NOTE,data)
+                }
 
             }
-
 
         lifecycleScope.launch {
             viewModel.note.observe(requireActivity()) { dataNote ->
@@ -116,4 +125,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         viewModel.getNote()
 //        activity?.tos("testFR")
     }
+
+
 }
