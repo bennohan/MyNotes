@@ -4,6 +4,7 @@ import android.content.Context
 import com.crocodic.core.data.CoreSession
 import com.crocodic.core.helper.okhttp.SSLTrust
 import com.example.mynotes.api.ApiService
+import com.example.mynotes.base.BaseObserver
 import com.example.mynotes.data.AppDatabase
 import com.example.mynotes.data.constant.Cons
 import com.google.gson.FieldNamingPolicy
@@ -81,5 +82,9 @@ class DataModule () {
             .build().create(ApiService::class.java)
 
     }
+
+    @Provides
+    fun provideBaseObserver(apiService: ApiService,session: CoreSession): BaseObserver = BaseObserver(apiService,session)
+
 
 }

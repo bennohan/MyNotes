@@ -5,6 +5,7 @@ import com.crocodic.core.api.ApiObserver
 import com.crocodic.core.api.ApiResponse
 import com.crocodic.core.data.CoreSession
 import com.example.mynotes.api.ApiService
+import com.example.mynotes.base.BaseObserver
 import com.example.mynotes.base.BaseViewModel
 import com.example.mynotes.data.UserDao
 import com.example.mynotes.data.constant.Cons
@@ -19,7 +20,8 @@ class RegisterViewModel @Inject constructor(
     private val apiService: ApiService,
     private val userDao: UserDao,
     private val gson: Gson,
-    private val session: CoreSession
+    private val session: CoreSession,
+    private val observer: BaseObserver
 ) : BaseViewModel() {
     fun register(
         name: String,
@@ -28,10 +30,10 @@ class RegisterViewModel @Inject constructor(
         confirmPassword: String
     ) = viewModelScope.launch {
         _apiResponse.send(ApiResponse().responseLoading())
-        ApiObserver(
-            { apiService.register(name, phone, password,confirmPassword) },
-            false,
-            object : ApiObserver.ResponseListener {
+        observer(
+            block = { apiService.register(name, phone, password,confirmPassword) },
+            toast = false,
+            responseListener = object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
 //                    val data = response.getJSONObject(ApiCode.DATA).toObject<User>(gson)
 //                    userDao.insert(data.copy(idRoom = 1))

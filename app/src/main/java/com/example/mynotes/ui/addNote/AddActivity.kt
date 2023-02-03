@@ -22,13 +22,13 @@ import kotlinx.coroutines.launch
 class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.activity_add) {
 
     private var note: Note? = null
-    private var oldTitle : String? = null
-    private var oldContent : String? = null
+    private var oldTitle: String? = null
+    private var oldContent: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        note= intent.getParcelableExtra(Cons.NOTE.NOTE)
+        note = intent.getParcelableExtra(Cons.NOTE.NOTE)
 
 
         binding.data = note
@@ -50,43 +50,46 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.acti
 
         }
 
-        //Edit Button
-        binding.btnEdit.setOnClickListener {
-            val title = binding.etTitle.textOf()
-            val content = binding.etContent.textOf()
+//        //Edit Button
+//        binding.btnEdit.setOnClickListener {
+//            val title = binding.etTitle.textOf()
+//            val content = binding.etContent.textOf()
+//
+//            if (title.isEmpty()) {
+//                tos("Judul tidak boleh kosong")
+//                return@setOnClickListener
+//            }
+//
+//            if (content.isEmpty()) {
+//                tos("Note tidak boleh kosong")
+//                return@setOnClickListener
+//            }
+//        }
 
-            if (title.isEmpty()) {
-                tos("Judul tidak boleh kosong")
-                return@setOnClickListener
-            }
-
-            if (content.isEmpty()) {
-                tos("Note tidak boleh kosong")
-                return@setOnClickListener
-            }
-
-        }
-
-        //Button Save (sudah bisa Update , tp Note Double)
+        //Button Save
         binding.ivCheck.setOnClickListener {
 
             val title = binding.etTitle.textOf()
             val content = binding.etContent.textOf()
 
-            if (binding.etTitle.isEmptyRequired(R.string.mustFill) || binding.etContent.isEmptyRequired(
+            if (binding.etTitle.isEmptyRequired(R.string.mustFill) ||
+                binding.etContent.isEmptyRequired(
                     R.string.mustFill
                 )
             ) {
                 return@setOnClickListener
             }
-            viewModel.createNote(title, content)
-
-            if (note!=null) {
-                viewModel.updateNote(note!!.id.toString(), title, content)
+            if (oldTitle.isNullOrEmpty() && oldContent.isNullOrEmpty()) {
+                viewModel.createNote(title, content)
             } else {
-                tos("belum ada data tidak bisa di update")
-            }
+                if (note != null) {
+                    if (oldTitle != title || oldContent != content) {
+                        viewModel.updateNote(note!!.id.toString(), title, content)
+                    }
+                }
 
+
+            }
         }
 
         lifecycleScope.launch {

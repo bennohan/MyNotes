@@ -7,6 +7,7 @@ import com.crocodic.core.api.ApiResponse
 import com.crocodic.core.data.CoreSession
 import com.crocodic.core.extension.toObject
 import com.example.mynotes.api.ApiService
+import com.example.mynotes.base.BaseObserver
 import com.example.mynotes.base.BaseViewModel
 import com.example.mynotes.data.User
 import com.example.mynotes.data.UserDao
@@ -26,18 +27,19 @@ class EditProfileViewModel @Inject constructor(
     private val userDao: UserDao,
     private val session: CoreSession,
     private val gson: Gson,
+    private val observer: BaseObserver,
 ) : BaseViewModel() {
 
     //EditProfile
-    fun UpdateProfile(
+    fun updateProfile(
         name: String,
 //                      photo : String
     ) = viewModelScope.launch {
         _apiResponse.send(ApiResponse().responseLoading())
-        ApiObserver(
-            { apiService.updateProfile(name) },
-            false,
-            object : ApiObserver.ResponseListener {
+        observer(
+            block = { apiService.updateProfile(name) },
+            toast = false,
+            responseListener = object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
                     val data = response.getJSONObject(ApiCode.DATA).toObject<User>(gson)
                     userDao.update(data.copy(idRoom = 1))

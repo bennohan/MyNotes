@@ -7,6 +7,7 @@ import com.crocodic.core.api.ApiObserver
 import com.crocodic.core.api.ApiResponse
 import com.crocodic.core.extension.toList
 import com.example.mynotes.api.ApiService
+import com.example.mynotes.base.BaseObserver
 import com.example.mynotes.base.BaseViewModel
 import com.example.mynotes.data.Note
 import com.example.mynotes.data.UserDao
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val apiService: ApiService,
     private val userDao: UserDao,
-    private val gson: Gson
+    private val gson: Gson,
+    private val observer: BaseObserver,
 ) : BaseViewModel() {
 //    private val _note: Channel<List<Note?>> = Channel()
 //    val note =_note.receiveAsFlow()
@@ -28,27 +30,30 @@ class HomeViewModel @Inject constructor(
     var note = MutableLiveData<List<Note>>()
 
     fun getNote(
-        search: String? = null
+        search: String? = null,
     ) = viewModelScope.launch {
         _apiResponse.send(ApiResponse().responseLoading())
-        ApiObserver({ apiService.getNote(search) }, false, object : ApiObserver.ResponseListener {
-            override suspend fun onSuccess(response: JSONObject) {
-                val data =
+        observer(
+            block = { apiService.getNote(search) },
+            toast = false,
+            responseListener = object : ApiObserver.ResponseListener {
+                override suspend fun onSuccess(response: JSONObject) {
+                    val data =
                         response.getJSONArray(ApiCode.DATA).toList<Note>(gson)
-                 note.postValue(data)
-            }
+                    note.postValue(data)
+                }
 
-            override suspend fun onError(response: ApiResponse) {
-                super.onError(response)
-            }
+                override suspend fun onError(response: ApiResponse) {
+                    super.onError(response)
+                }
 
-        })
-
-    }
-
-    fun deleteNote() = viewModelScope.launch {
+            })
 
     }
+
+//    fun deleteNote() = viewModelScope.launch {
+//
+//    }
 
 }
 

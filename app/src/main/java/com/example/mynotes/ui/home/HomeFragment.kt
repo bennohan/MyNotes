@@ -1,9 +1,12 @@
 package com.example.mynotes.ui.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -26,27 +29,27 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
+class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
+    SearchView.OnQueryTextListener {
 
     @Inject
     lateinit var userDao: UserDao
 
-//    private val runnable by lazy {
-//        Runnable {
-////            refreshData()
-//        }
-//    }
+    private val runnable by lazy {
+        Runnable {
+            viewModel.getNote(keyword)
+        }
+    }
 
-//    private val handler = Handler(Looper.getMainLooper())
-
+    private val handler = Handler(Looper.getMainLooper())
     private var keyword: String? = null
 
     private val viewModel by activityViewModels<HomeViewModel>()
 
     private var note = ArrayList<Note?>()
+    private var noteAll = ArrayList<Note>()
 
     private lateinit var rvNote: View
-
     private lateinit var selectedNote: Note
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +76,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
 
             }
 
+//        //Search v2 (eddit text)
+//        binding?.searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                TODO("Not yet implemented")
+//            }
+//        })
 
         lifecycleScope.launch {
             viewModel.note.observe(requireActivity()) { dataNote ->
@@ -85,8 +94,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
                 note.addAll(dataNote)
 
                 binding?.rvNote?.adapter?.notifyDataSetChanged()
-
-
 
 
             }
@@ -105,23 +112,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
             }
 
         }
-
-//        val swipeToDeleteCallBack = object : SwipeToDeleteCallBack(){
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-////               viewModel.deletenote()
-//            }
-//        }
-//
-//        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
-//        itemTouchHelper.attachToRecyclerView(rvNote)
-
     }
-//    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-//        holder.notes_layout.setOnLongClickListener {
-//            listener.onLongItemClicked(NotesList[holder.adapterPosition],holder.notes_layout)
-//            true
-//        }
-//    }
 
 
     override fun onCreateView(
@@ -131,20 +122,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
 
+        //working on it
+//        binding?.searchView?.setOnQueryTextListener(this)
+        observe()
+
 
     }
-
-//     fun onLongItemCLicked(note: Note, cardView: CardView) {
-//        selectedNote = note
-//        popUpDisplay(cardView)
-//    }
-//
-//    private fun popUpDisplay(cardView: CardView) {
-//        val popup = PopupMenu(context, cardView)
-//        popup.setOnMenuItemClickListener(this@HomeFragment)
-//        popup.inflate(R.menu.pop_up_menu)
-//        popup.show()
-//    }
 
 
     private fun getNote() {
@@ -152,59 +135,44 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         activity?.tos("Note Loaded")
     }
 
-//    override fun onMenuItemClick(item: MenuItem?): Boolean {
-//        if (item?.itemId == R.id.itm_delete_note) {
-//
-//            return true
-//        }
-//        return false
-//    }
-//
-//    inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        val notes_layout = itemView.findViewById<CardView>(R.id.item_note)
-//    }
-//
-//    interface NotesClickListener{
-//        fun onItemClicked(note: Note)
-//        fun onLongItemClicked(note: Note, cardView: CardView)
-//    }
 
-//    private fun popupMenu() {
-//        val popupMenu = PopupMenu(context, rvNote)
-//        popupMenu.inflate(R.menu.pop_up_menu)
-//        popupMenu.setOnMenuItemClickListener {
-//            when (it.itemId) {
-//                R.id.itm_delete_note -> {
-//                    activity?.tos("note deleted")
-//                    true
-//                }
-//
-//
-//                else -> true
-//
-//            }
-//        }
-//
-//        rvNote.setOnLongClickListener {
-//
-//            try {
-//                val popup = PopupMenu::class.java.getDeclaredField("mPopup")
-//                popup.isAccessible = true
-//                val menu = popup.get(popupMenu)
-//                menu.javaClass
-//                    .getDeclaredMethod("seticon", Boolean::class.java)
-//                    .invoke(menu, true)
-//
-//            } catch (e:Exception){
-//                e.printStackTrace()
-//            } finally {
-//                popupMenu.show()
-//            }
-//
-//            true
-//
-//        }
-//    }
+    private fun observe() {
+        viewModel.note.observe(viewLifecycleOwner) {
+            val shoreName = it.sortedBy { short ->
+                short.idRoom != 1
+            }
+            val filter = it.filter { it.idRoom != 1 }
+            note.clear()
+            binding?.rvNote?.adapter?.notifyDataSetChanged()
 
+
+            note.addAll(filter)
+            binding?.rvNote?.adapter?.notifyItemInserted(0)
+        }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+//        Log.d("Keyword", "$newText")
+
+        if (newText?.isNotEmpty() == true) {
+            val filter = noteAll.filter { it?.titile?.contains("$newText", true) == true }
+//            Log.d("CekFilter", "Keyword : $filter")
+            note.clear()
+            binding?.rvNote?.adapter?.notifyDataSetChanged()
+            noteAll.addAll(filter)
+            binding?.rvNote?.adapter?.notifyItemInserted(0)
+
+        } else if (newText?.isEmpty() == true) {
+            note.clear()
+            binding?.rvNote?.adapter?.notifyDataSetChanged()
+            note.addAll(noteAll)
+            binding?.rvNote?.adapter?.notifyItemInserted(0)
+        }
+        return false
+    }
 
 }

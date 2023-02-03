@@ -7,7 +7,7 @@ interface ApiService {
 
     //Request login
     @FormUrlEncoded
-    @POST("user/login")
+    @POST("user/login?expired=1")
     suspend fun login(
         @Field("email") email: String?,
         @Field("password") password: String?
@@ -34,6 +34,10 @@ interface ApiService {
     //Get Token
     @GET("user/get-token")
     suspend fun getToken(): String
+
+    //refresh Token
+    @GET("user/refresh-token")
+    suspend fun refreshToken (): String
 
     //Get Profile
     @GET("profile")

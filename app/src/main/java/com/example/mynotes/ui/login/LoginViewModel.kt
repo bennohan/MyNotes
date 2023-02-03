@@ -7,6 +7,7 @@ import com.crocodic.core.api.ApiResponse
 import com.crocodic.core.data.CoreSession
 import com.crocodic.core.extension.toObject
 import com.example.mynotes.api.ApiService
+import com.example.mynotes.base.BaseObserver
 import com.example.mynotes.base.BaseViewModel
 import com.example.mynotes.data.User
 import com.example.mynotes.data.UserDao
@@ -23,18 +24,19 @@ class LoginViewModel @Inject constructor(
     private val apiService: ApiService,
     private val gson: Gson,
     private val userDao: UserDao,
-    private val session: CoreSession
+    private val session: CoreSession,
+    private val observer: BaseObserver,
 ) : BaseViewModel() {
 
     fun login(
         email: String,
-        password: String
+        password: String,
     ) = viewModelScope.launch {
         _apiResponse.send(ApiResponse().responseLoading())
-        ApiObserver(
-            { apiService.login(email, password) },
-            false,
-            object : ApiObserver.ResponseListener {
+        observer(
+            block = { apiService.login(email, password) },
+            toast = false,
+            responseListener = object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
                     Timber.d("DataLogin : $response")
 
@@ -44,9 +46,9 @@ class LoginViewModel @Inject constructor(
 //                    Timber.d("DataUser : $data")
                     userDao.insert(data.copy(idRoom = 1))
                     _apiResponse.send(ApiResponse().responseSuccess("Sukses"))
-                    session.setValue(Cons.USER.EMAIL,email)
-                    session.setValue(Cons.USER.PASSWORD,password)
-                    session.setValue(Cons.USER.PROFILE,"Login")
+                    session.setValue(Cons.USER.EMAIL, email)
+                    session.setValue(Cons.USER.PASSWORD, password)
+                    session.setValue(Cons.USER.PROFILE, "Login")
 
                 }
 

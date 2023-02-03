@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -41,9 +42,6 @@ import java.io.InputStream
 @AndroidEntryPoint
 class EditProfileActivity :
     BaseActivity<ActivityEditProfileBinding, EditProfileViewModel>(R.layout.activity_edit_profile) {
-//
-//    @Inject
-//    lateinit var session : CoreSession
 
     private var photoFile: File? = null
     private var username: String? = null
@@ -135,7 +133,7 @@ class EditProfileActivity :
                 tos("Photo tidak berubah ")
                 return
             }
-            viewModel.UpdateProfile(name)
+            viewModel.updateProfile(name)
 
         } else {
             lifecycleScope.launch {
@@ -212,7 +210,6 @@ class EditProfileActivity :
             } else {
                 getOrientation(uri)
             }
-
             val file = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
                 createImageFile()
             } else {
@@ -222,6 +219,10 @@ class EditProfileActivity :
 
             val fos = FileOutputStream(file)
             var bitmap = image
+                Log.d("cekImage","photoFile:$filePhoto")
+            filePhoto = file
+
+
 
             if (orientation != -1 && orientation != 0) {
 
