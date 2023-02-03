@@ -1,5 +1,6 @@
 package com.example.mynotes.api
 
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -45,6 +46,14 @@ interface ApiService {
         @Field("name") name: String,
     ): String
 
+    //Update Profile Photo
+    @Multipart
+    @PATCH("user/profile")
+    suspend fun updateProfileWithPhoto(
+        @Part("name") name: String?,
+        @Part photo: MultipartBody.Part?
+    ):String
+
     // Get Note
     @GET("note/")
     suspend fun getNote(
@@ -53,9 +62,16 @@ interface ApiService {
 
     //UpdateNote
     @FormUrlEncoded
-    @PATCH("note/:id")
+    @PATCH("note/{id}")
     suspend fun updateNote(
+        @Path("id") id : String,
         @Field("title") title: String,
         @Field("content") content: String
+    ) : String
+
+    //Delete Note
+    @DELETE("note/{id}")
+    suspend fun deleteNote(
+        @Path("id") id : String,
     ) : String
 }

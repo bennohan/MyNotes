@@ -46,6 +46,10 @@ class HomeViewModel @Inject constructor(
 
     }
 
+    fun deleteNote() = viewModelScope.launch {
+
+    }
+
 }
 
 

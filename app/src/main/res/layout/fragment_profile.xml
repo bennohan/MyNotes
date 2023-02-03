@@ -67,7 +67,7 @@
                 android:textSize="@dimen/_20ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_profile"
+                app:layout_constraintTop_toBottomOf="@id/iv_profilePF"
                 tools:text="Name" />
 
             <TextView

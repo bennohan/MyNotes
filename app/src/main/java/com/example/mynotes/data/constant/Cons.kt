@@ -5,6 +5,7 @@ object Cons {
         const val EMAIL = "email"
         const val PASSWORD ="password"
         const val PROFILE = "login"
+        const val PHOTO = "photo"
     }
     object TOKEN{
         const val API_TOKEN ="api_token"

@@ -39,9 +39,9 @@ class AddViewModel @Inject constructor(
     }
 
     //Update Note
-    fun updateNote(title:String, content:String) = viewModelScope.launch {
+    fun updateNote(id:String, title:String, content:String) = viewModelScope.launch {
         _apiResponse.send(ApiResponse().responseLoading())
-        ApiObserver({apiService.updateNote(title,content)},
+        ApiObserver({apiService.updateNote(id,title,content)},
         false,
             object : ApiObserver.ResponseListener{
                 override suspend fun onSuccess(response: JSONObject) {
@@ -54,6 +54,24 @@ class AddViewModel @Inject constructor(
                     _apiResponse.send(ApiResponse().responseError())
                 }
             }
+        )
+    }
+
+    //Delete Note
+    fun deleteNote(id: String) = viewModelScope.launch {
+        _apiResponse.send(ApiResponse().responseLoading())
+        ApiObserver({apiService.deleteNote(id)},
+        false,
+        object : ApiObserver.ResponseListener{
+            override suspend fun onSuccess(response: JSONObject) {
+                _apiResponse.send(ApiResponse().responseSuccess(" Note Deleted"))
+
+            }
+            override suspend fun onError(response: ApiResponse) {
+                super.onError(response)
+                _apiResponse.send(ApiResponse().responseError())
+            }
+        }
         )
     }
 

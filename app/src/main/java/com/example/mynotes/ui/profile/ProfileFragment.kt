@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.bumptech.glide.Glide
 import com.crocodic.core.extension.openActivity
 import com.example.mynotes.R
 import com.example.mynotes.base.BaseFragment
+import com.example.mynotes.data.Note
 import com.example.mynotes.data.User
 import com.example.mynotes.data.UserDao
 import com.example.mynotes.databinding.FragmentProfileBinding
@@ -23,12 +26,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile){
 
     @Inject
     lateinit var userDao: UserDao
 
-    private lateinit var user: User
+     private  var user: User? = null
+
+    private lateinit var  selectedNote: Note
+
 
     private val viewModel by activityViewModels<ProfileViewModel>()
 
@@ -54,7 +60,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
         val tvnamePF = view.findViewById<TextView>(R.id.tv_namePF)
         val tvemailPF = view.findViewById<TextView>(R.id.tv_emailPF)
-//        val ivprofilePF = view.findViewById<ImageView>(R.id.iv_profilePF)
+        val ivprofilePF = view.findViewById<ImageView>(R.id.iv_profilePF)
 
         //EditProfile Button
         btnEditProfile.setOnClickListener {
@@ -70,6 +76,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             }
         }
 
+
 //        viewModel.getUser.observe(viewLifecycleOwner) {
 ////                Timber.d("adaData")
 //            binding?.userfr = it
@@ -83,6 +90,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
                     tvemailPF.text = it?.email
 //                    ivprofilePF.drawable = it.photo
 
+                    Glide
+                        .with(requireContext())
+                        .load(it.photo)
+                        .into(ivprofilePF)
+
                 }
 
             }
@@ -93,8 +105,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
 
         }
 
-
     }
+
 
 
 

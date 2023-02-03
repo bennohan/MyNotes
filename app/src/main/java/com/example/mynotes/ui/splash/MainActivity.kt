@@ -8,16 +8,12 @@ import com.example.mynotes.databinding.ActivityMainBinding
 import com.example.mynotes.ui.login.LoginActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 //        val userLogin = session.getString(Cons.USER.PROFILE)
 
-
-            viewModel.splash {
+        viewModel.splash {
             openActivity<LoginActivity>() {
                 finish()
             }

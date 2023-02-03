@@ -2,7 +2,6 @@ package com.example.mynotes.ui.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.crocodic.core.extension.openActivity
 import com.example.mynotes.R
 import com.example.mynotes.base.BaseActivity
@@ -21,7 +20,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
     @Inject
     lateinit var userDao: UserDao
 
-    private lateinit var swipeRefresh: SwipeRefreshLayout
     private var note = ArrayList<Note?>()
 
     private  var profileFragment = ProfileFragment()
@@ -31,6 +29,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//        binding.bottomNavigationView.setBackgroundColor(null)
 
         replaceFragment(homeFragment)
 //        getNote()

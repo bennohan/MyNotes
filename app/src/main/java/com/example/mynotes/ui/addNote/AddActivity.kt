@@ -20,12 +20,21 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.activity_add) {
+
+    private var note: Note? = null
+    private var oldTitle : String? = null
+    private var oldContent : String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val note : Note? = intent.getParcelableExtra(Cons.NOTE.NOTE)
+        note= intent.getParcelableExtra(Cons.NOTE.NOTE)
+
 
         binding.data = note
+
+        oldTitle = note?.titile
+        oldContent = note?.note
 
 
         //Back Button
@@ -35,15 +44,34 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.acti
             }
         }
 
-//        //btn eddit
-//        binding.btnEdit.setOnClickListener {
-//            val title = binding.etTitle.textOf()
-//            val content = binding.etContent.textOf()
-//            viewModel.updateNote(title, content)
-//        }
+        //Delete Button
+        binding.btnDelete.setOnClickListener {
+            note?.id?.let { id -> viewModel.deleteNote(id) }
 
-        //Button Save
+        }
+
+        //Edit Button
+        binding.btnEdit.setOnClickListener {
+            val title = binding.etTitle.textOf()
+            val content = binding.etContent.textOf()
+
+            if (title.isEmpty()) {
+                tos("Judul tidak boleh kosong")
+                return@setOnClickListener
+            }
+
+            if (content.isEmpty()) {
+                tos("Note tidak boleh kosong")
+                return@setOnClickListener
+            }
+
+        }
+
+        //Button Save (sudah bisa Update , tp Note Double)
         binding.ivCheck.setOnClickListener {
+
+            val title = binding.etTitle.textOf()
+            val content = binding.etContent.textOf()
 
             if (binding.etTitle.isEmptyRequired(R.string.mustFill) || binding.etContent.isEmptyRequired(
                     R.string.mustFill
@@ -51,11 +79,14 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.acti
             ) {
                 return@setOnClickListener
             }
-            val title = binding.etTitle.textOf()
-            val content = binding.etContent.textOf()
-
             viewModel.createNote(title, content)
-//            viewModel.updateNote(title, content)
+
+            if (note!=null) {
+                viewModel.updateNote(note!!.id.toString(), title, content)
+            } else {
+                tos("belum ada data tidak bisa di update")
+            }
+
         }
 
         lifecycleScope.launch {

@@ -20,8 +20,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RegisterActivity :
-    BaseActivity<ActivityRegisterBinding, RegisterViewModel>(R.layout.activity_register) {
+class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel>(R.layout.activity_register) {
 
     @Inject
     lateinit var session: CoreSession

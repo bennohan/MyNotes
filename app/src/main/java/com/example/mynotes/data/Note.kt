@@ -10,10 +10,13 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity
 data class Note(
-    @PrimaryKey
-//    @Expose
-//    @SerializedName("id")
-//    val id: Int,
+    @PrimaryKey(autoGenerate = false)
+    @Expose
+    @SerializedName("idRoom")
+    val idRoom: Int,
+    @Expose
+    @SerializedName("id")
+    val id: String?,
     @Expose
     @SerializedName("title")
     val titile : String?,
