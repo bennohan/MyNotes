@@ -49,9 +49,7 @@ class EditProfileActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        photoFile = getPhotoFile()
         binding.etName.setText(username)
-//        tokenAPI()
 
         initClick()
         observe()

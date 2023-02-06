@@ -26,31 +26,31 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile){
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
 
     @Inject
     lateinit var userDao: UserDao
 
-     private  var user: User? = null
+    private var user: User? = null
 
-    private lateinit var  selectedNote: Note
+    private lateinit var selectedNote: Note
 
 
     private val viewModel by activityViewModels<ProfileViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_profile, container, false)
 
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,11 +77,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         }
 
 
-//        viewModel.getUser.observe(viewLifecycleOwner) {
-////                Timber.d("adaData")
-//            binding?.userfr = it
-//        }
-
         lifecycleScope.launch {
             viewModel.getUser.observe(requireActivity()) { data ->
                 data.let {
@@ -106,8 +101,4 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         }
 
     }
-
-
-
-
 }

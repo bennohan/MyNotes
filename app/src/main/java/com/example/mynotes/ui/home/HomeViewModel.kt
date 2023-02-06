@@ -29,6 +29,7 @@ class HomeViewModel @Inject constructor(
 
     var note = MutableLiveData<List<Note>>()
 
+    // Function GetNote
     fun getNote(
         search: String? = null,
     ) = viewModelScope.launch {
@@ -50,10 +51,6 @@ class HomeViewModel @Inject constructor(
             })
 
     }
-
-//    fun deleteNote() = viewModelScope.launch {
-//
-//    }
 
 }
 

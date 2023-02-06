@@ -24,6 +24,9 @@ data class Note(
     @SerializedName("content")
     val note: String?,
     @Expose
-    @SerializedName("Date")
-    val date: String?
+    @SerializedName("created_at")
+    val createdAt: Long?,
+    @Expose
+    @SerializedName("updated_at")
+    val updatedAt: Long?,
 ) : Parcelable

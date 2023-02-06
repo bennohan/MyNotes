@@ -28,6 +28,7 @@ class LoginViewModel @Inject constructor(
     private val observer: BaseObserver,
 ) : BaseViewModel() {
 
+    //Login Function
     fun login(
         email: String,
         password: String,
@@ -59,6 +60,7 @@ class LoginViewModel @Inject constructor(
             })
     }
 
+    //Get Token Function
     fun getToken() {
         viewModelScope.launch {
             ApiObserver(

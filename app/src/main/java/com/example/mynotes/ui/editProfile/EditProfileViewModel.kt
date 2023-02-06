@@ -33,7 +33,7 @@ class EditProfileViewModel @Inject constructor(
     //EditProfile
     fun updateProfile(
         name: String,
-//                      photo : String
+
     ) = viewModelScope.launch {
         _apiResponse.send(ApiResponse().responseLoading())
         observer(
@@ -55,6 +55,7 @@ class EditProfileViewModel @Inject constructor(
         )
     }
 
+    //Update Profile Photo Function
     fun updateProfileWithPhoto(name: String, photo: File) = viewModelScope.launch {
         println("Nama: $name")
         val fileBody = photo.asRequestBody("multipart/form-data".toMediaTypeOrNull())
@@ -76,25 +77,5 @@ class EditProfileViewModel @Inject constructor(
                 }
             })
     }
-//    fun getToken() {
-//        viewModelScope.launch {
-//            ApiObserver(
-//                block = { apiService.getToken() },
-//                toast = false,
-//                responseListener = object : ApiObserver.ResponseListener {
-//                    override suspend fun onSuccess(response: JSONObject) {
-//                        val token = response.getString("token")
-//                        session.setValue(Cons.TOKEN.API_TOKEN, token)
-//
-//                    }
-//
-//                    override suspend fun onError(response: ApiResponse) {
-//                        super.onError(response)
-//                    }
-//                })
-//
-//        }
-//
-//    }
 
 }

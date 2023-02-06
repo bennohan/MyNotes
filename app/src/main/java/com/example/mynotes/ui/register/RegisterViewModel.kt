@@ -23,6 +23,8 @@ class RegisterViewModel @Inject constructor(
     private val session: CoreSession,
     private val observer: BaseObserver
 ) : BaseViewModel() {
+
+    // Register Function
     fun register(
         name: String,
         phone: String,
@@ -35,8 +37,6 @@ class RegisterViewModel @Inject constructor(
             toast = false,
             responseListener = object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
-//                    val data = response.getJSONObject(ApiCode.DATA).toObject<User>(gson)
-//                    userDao.insert(data.copy(idRoom = 1))
                     _apiResponse.send(ApiResponse().responseSuccess("Berhasil Register"))
 
                 }
@@ -48,6 +48,7 @@ class RegisterViewModel @Inject constructor(
         )
     }
 
+    //Get Token Function
     fun getToken() {
         viewModelScope.launch {
             ApiObserver(

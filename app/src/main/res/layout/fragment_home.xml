@@ -12,10 +12,10 @@
         <EditText
             android:id="@+id/searchView"
             android:layout_width="match_parent"
+            android:inputType="textCapWords"
             android:layout_height="wrap_content"
-            android:imeOptions="actionSearch"
             app:layout_constraintTop_toTopOf="parent"
-            android:maxLines="1"/>
+            android:maxLines="1" />
 
 <!--                <SearchView-->
 <!--                    android:id="@+id/searchView"-->

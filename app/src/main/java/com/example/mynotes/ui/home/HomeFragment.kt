@@ -1,8 +1,6 @@
 package com.example.mynotes.ui.home
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.SearchView
@@ -35,26 +33,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
     @Inject
     lateinit var userDao: UserDao
 
-    private val runnable by lazy {
-        Runnable {
-            viewModel.getNote(keyword)
-        }
-    }
-
-    private val handler = Handler(Looper.getMainLooper())
-    private var keyword: String? = null
-
     private val viewModel by activityViewModels<HomeViewModel>()
 
     private var note = ArrayList<Note?>()
     private var noteAll = ArrayList<Note?>()
 
-    private lateinit var rvNote: View
-    private lateinit var selectedNote: Note
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,13 +48,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
         val rvNote = view.findViewById<RecyclerView>(R.id.rv_note)
 
         //SearchView Function
-        binding?.searchView?.doOnTextChanged{text, start, before, count ->
+        binding?.searchView?.doOnTextChanged { text, start, before, count ->
             if (text.isNullOrEmpty()) {
-                val filter = noteAll.filter { it?.titile?.contains("$text", true) == true }
-                Log.d("CekFilter", "Keyword : $filter")
+//                val filter = noteAll.filter { it?.titile?.contains("$text", true) == true }
+                val filteringData =
+                    noteAll.filter { it?.note?.contains(text.toString(), true) == true }
+                println("Keyword $text Data : $filteringData")
+                Log.d("CekFilter", "Keyword $text Data : $filteringData")
                 note.clear()
+//                note.addAll(filter)
+                filteringData.forEach {
+                    note.add(it)
+                }
                 binding?.rvNote?.adapter?.notifyDataSetChanged()
-                note.addAll(filter)
                 binding?.rvNote?.adapter?.notifyItemInserted(0)
 
             } else {
@@ -79,9 +71,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
                 binding?.rvNote?.adapter?.notifyItemInserted(0)
             }
         }
-//        binding?.searchView?.setOnQueryTextListener(this)
-        observe()
 
+        observe()
         getNote()
 
         //Adapter Recycler View
@@ -91,44 +82,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
                 activity?.openActivity<AddActivity> {
                     putExtra(Cons.NOTE.NOTE, data)
                 }
-
             }
-
-//        //Search v2 (eddit text)
-//        binding?.searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                TODO("Not yet implemented")
-//            }
-//        })
-
-        /*lifecycleScope.launch {
-            viewModel.note.observe(requireActivity()) { dataNote ->
-                if (dataNote.isEmpty()) {
-                    activity?.tos("dataKosongFR")
-                } else {
-//                    activity?.tos("dataAdaFR")
-                }
-                note.clear()
-                note.addAll(dataNote)
-
-                binding?.rvNote?.adapter?.notifyDataSetChanged()
-            }
-        }*/
     }
 
 
-    /*override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-
-        //working on it
-
-    }*/
-
-
+    //Get Note Function
     private fun getNote() {
         viewModel.getNote()
         activity?.tos("Note Loaded")
@@ -140,7 +98,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
                 val shoreName = it.sortedBy { short ->
                     short.idRoom != 1
                 }
-//            val filter = it.filter { it.idRoom != 1 }
                 note.clear()
                 noteAll.clear()
 
@@ -164,9 +121,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
         }
     }
 
+
     override fun onQueryTextSubmit(query: String?): Boolean {
         return true
     }
+
 
     override fun onQueryTextChange(newText: String?): Boolean {
         Log.d("Keyword", "$newText")

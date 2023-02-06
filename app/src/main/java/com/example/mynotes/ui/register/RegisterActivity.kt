@@ -30,12 +30,14 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
 
         tokenAPI()
 
+        // Button Back
         binding.ivBack.setOnClickListener {
             openActivity<LoginActivity> {
                 finish()
             }
         }
 
+        //Save Register Button
         binding.btnSave.setOnClickListener {
             if(binding.etName.isEmptyRequired(R.string.mustFill) || binding.etEmail.isEmptyRequired(R.string.mustFill) || binding.etPassword.isEmptyRequired(R.string.mustFill)){
                 return@setOnClickListener
@@ -75,13 +77,9 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
         }
 
     }
+
+    //Token Api Function
     fun tokenAPI() {
-//            val current = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-//                LocalDateTime.now()
-//            }else{
-//            }
-//            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-DD|rahasia")
-//            val date: String = current.format(dateFormatter)
         val dateNow = DateTimeHelper().dateNow()
         val tokenInit = "$dateNow|rahasia"
         val tokenEncrypt = tokenInit.base64encrypt()

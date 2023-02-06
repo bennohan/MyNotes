@@ -23,7 +23,8 @@ class AddViewModel @Inject constructor(
     private val userDao: UserDao,
     private val observer: BaseObserver,
 ) : BaseViewModel() {
-    //Create Note
+
+    //Create Note Function
     fun createNote(title: String, content: String) = viewModelScope.launch {
         _apiResponse.send(ApiResponse().responseLoading())
         observer(

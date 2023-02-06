@@ -1,6 +1,7 @@
 package com.example.mynotes.ui.addNote
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -17,6 +18,7 @@ import com.example.mynotes.databinding.ActivityAddBinding
 import com.example.mynotes.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.activity_add) {
@@ -36,6 +38,11 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.acti
         oldTitle = note?.titile
         oldContent = note?.note
 
+        title = "KotlinApp"
+        val textView: TextView = findViewById(R.id.tvDate)
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val dateString = simpleDateFormat.format(note?.updatedAt ?: 9897546853323L)
+        textView.text = String.format("Date: %s", dateString)
 
         //Back Button
         binding.ivBack.setOnClickListener {
@@ -50,21 +57,6 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.acti
 
         }
 
-//        //Edit Button
-//        binding.btnEdit.setOnClickListener {
-//            val title = binding.etTitle.textOf()
-//            val content = binding.etContent.textOf()
-//
-//            if (title.isEmpty()) {
-//                tos("Judul tidak boleh kosong")
-//                return@setOnClickListener
-//            }
-//
-//            if (content.isEmpty()) {
-//                tos("Note tidak boleh kosong")
-//                return@setOnClickListener
-//            }
-//        }
 
         //Button Save
         binding.ivCheck.setOnClickListener {

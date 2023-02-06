@@ -59,7 +59,8 @@
             android:text="Name"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_editprofilephoto" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_editprofilephoto"/>
+
 
         <EditText
             android:id="@+id/et_name"

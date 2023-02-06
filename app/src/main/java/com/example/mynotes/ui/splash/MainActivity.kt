@@ -23,6 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
 
         val userLogin = session.getString(Cons.USER.PROFILE)
 
+        // Calling Splash Function
         viewModel.splash {
             if (userLogin == "Login"){
                 openActivity<HomeActivity>()
