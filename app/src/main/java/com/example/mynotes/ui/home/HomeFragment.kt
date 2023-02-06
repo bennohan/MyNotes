@@ -3,10 +3,10 @@ package com.example.mynotes.ui.home
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
     private val viewModel by activityViewModels<HomeViewModel>()
 
     private var note = ArrayList<Note?>()
-    private var noteAll = ArrayList<Note>()
+    private var noteAll = ArrayList<Note?>()
 
     private lateinit var rvNote: View
     private lateinit var selectedNote: Note
@@ -59,12 +59,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val rvNote = view.findViewById<RecyclerView>(R.id.rv_note)
-//        val searchView = view.findViewById<SearchView>(R.id.searchView)
+
+        //SearchView Function
+        binding?.searchView?.doOnTextChanged{text, start, before, count ->
+            if (text.isNullOrEmpty()) {
+                val filter = noteAll.filter { it?.titile?.contains("$text", true) == true }
+                Log.d("CekFilter", "Keyword : $filter")
+                note.clear()
+                binding?.rvNote?.adapter?.notifyDataSetChanged()
+                note.addAll(filter)
+                binding?.rvNote?.adapter?.notifyItemInserted(0)
+
+            } else {
+                note.clear()
+                binding?.rvNote?.adapter?.notifyDataSetChanged()
+                note.addAll(noteAll)
+                Log.d("ceknoteall", "noteall : $noteAll")
+                binding?.rvNote?.adapter?.notifyItemInserted(0)
+            }
+        }
+//        binding?.searchView?.setOnQueryTextListener(this)
+        observe()
 
         getNote()
-
 
         //Adapter Recycler View
         rvNote.adapter = CoreListAdapter<ItemNoteBinding, Note>(R.layout.item_note)
@@ -83,7 +101,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
 //            }
 //        })
 
-        lifecycleScope.launch {
+        /*lifecycleScope.launch {
             viewModel.note.observe(requireActivity()) { dataNote ->
                 if (dataNote.isEmpty()) {
                     activity?.tos("dataKosongFR")
@@ -94,9 +112,44 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
                 note.addAll(dataNote)
 
                 binding?.rvNote?.adapter?.notifyDataSetChanged()
-
-
             }
+        }*/
+    }
+
+
+    /*override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_home, container, false)
+
+        //working on it
+
+    }*/
+
+
+    private fun getNote() {
+        viewModel.getNote()
+        activity?.tos("Note Loaded")
+    }
+
+    private fun observe() {
+        lifecycleScope.launch {
+            viewModel.note.observe(requireActivity()) {
+                val shoreName = it.sortedBy { short ->
+                    short.idRoom != 1
+                }
+//            val filter = it.filter { it.idRoom != 1 }
+                note.clear()
+                noteAll.clear()
+
+                note.addAll(it)
+                noteAll.addAll(it)
+                binding?.rvNote?.adapter?.notifyDataSetChanged()
+                binding?.rvNote?.adapter?.notifyItemInserted(0)
+            }
+
             viewModel.apiResponse.collect { it ->
 //                    activity.tos("test")
                 when (it.status) {
@@ -106,48 +159,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
                     else -> {
 
                     }
-
-
                 }
             }
-
-        }
-    }
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-
-        //working on it
-//        binding?.searchView?.setOnQueryTextListener(this)
-        observe()
-
-
-    }
-
-
-    private fun getNote() {
-        viewModel.getNote()
-        activity?.tos("Note Loaded")
-    }
-
-
-    private fun observe() {
-        viewModel.note.observe(viewLifecycleOwner) {
-            val shoreName = it.sortedBy { short ->
-                short.idRoom != 1
-            }
-            val filter = it.filter { it.idRoom != 1 }
-            note.clear()
-            binding?.rvNote?.adapter?.notifyDataSetChanged()
-
-
-            note.addAll(filter)
-            binding?.rvNote?.adapter?.notifyItemInserted(0)
         }
     }
 
@@ -156,22 +169,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-//        Log.d("Keyword", "$newText")
-
-        if (newText?.isNotEmpty() == true) {
-            val filter = noteAll.filter { it?.titile?.contains("$newText", true) == true }
-//            Log.d("CekFilter", "Keyword : $filter")
-            note.clear()
-            binding?.rvNote?.adapter?.notifyDataSetChanged()
-            noteAll.addAll(filter)
-            binding?.rvNote?.adapter?.notifyItemInserted(0)
-
-        } else if (newText?.isEmpty() == true) {
-            note.clear()
-            binding?.rvNote?.adapter?.notifyDataSetChanged()
-            note.addAll(noteAll)
-            binding?.rvNote?.adapter?.notifyItemInserted(0)
-        }
+        Log.d("Keyword", "$newText")
         return false
     }
 

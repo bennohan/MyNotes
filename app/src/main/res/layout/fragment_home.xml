@@ -9,19 +9,21 @@
         android:layout_margin="@dimen/_10sdp"
         tools:context=".ui.home.HomeFragment">
 
-<!--        <EditText-->
-<!--            android:id="@+id/searchView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <EditText
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionSearch"
+            app:layout_constraintTop_toTopOf="parent"
+            android:maxLines="1"/>
 
-                <SearchView
-                    android:id="@+id/searchView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="Find notes"
-                    android:layoutDirection="rtl"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <SearchView-->
+<!--                    android:id="@+id/searchView"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:autofillHints="Find notes"-->
+<!--                    android:layoutDirection="rtl"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_note"

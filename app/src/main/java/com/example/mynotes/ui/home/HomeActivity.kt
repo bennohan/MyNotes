@@ -26,6 +26,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
     private  var homeFragment = HomeFragment()
 
 
+    override fun authLogoutSuccess() {
+        super.authLogoutSuccess()
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

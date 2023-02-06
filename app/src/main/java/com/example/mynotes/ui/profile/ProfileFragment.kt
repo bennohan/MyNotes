@@ -92,7 +92,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
 
                     Glide
                         .with(requireContext())
-                        .load(it.photo)
+                        .load(it?.photo)
                         .into(ivprofilePF)
 
                 }

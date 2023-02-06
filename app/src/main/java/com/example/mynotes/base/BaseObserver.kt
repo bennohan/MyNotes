@@ -26,15 +26,12 @@ class BaseObserver @Inject constructor(
             }
 
             override suspend fun onError(response: ApiResponse) {
-                responseListener.onError(response)
-            }
-
-            override suspend fun onExpired(response: ApiResponse) {
+//                responseListener.onError(response)
                 ApiObserver(
                     {apiService.refreshToken()},
                     responseListener = object : ApiObserver.ResponseListener{
                         override suspend fun onSuccess(response: JSONObject) {
-                            val token = response.getJSONObject("data").getString("token")
+                            val token = response.getString("token")
                             session.setValue(Cons.TOKEN.API_TOKEN,token)
                             ApiObserver(block, responseListener = responseListener)
                         }
@@ -44,6 +41,10 @@ class BaseObserver @Inject constructor(
                         }
                     }
                 )
+            }
+
+            override suspend fun onExpired(response: ApiResponse) {
+                responseListener.onExpired(response)
             }
         })
     }

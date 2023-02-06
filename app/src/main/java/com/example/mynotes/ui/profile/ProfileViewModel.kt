@@ -26,6 +26,7 @@ class ProfileViewModel @Inject constructor(
 
     fun logout(logout: () -> Unit) =viewModelScope.launch {
         userDao.deleteAll()
+        logoutSuccess()
         logout()
     }
 

@@ -43,9 +43,8 @@ import java.io.InputStream
 class EditProfileActivity :
     BaseActivity<ActivityEditProfileBinding, EditProfileViewModel>(R.layout.activity_edit_profile) {
 
-    private var photoFile: File? = null
     private var username: String? = null
-    private  var filePhoto: File? = null
+    private var filePhoto: File? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,16 +56,6 @@ class EditProfileActivity :
         initClick()
         observe()
 
-        //Button Save
-//        binding.btnSave.setOnClickListener {
-//            if (binding.etName.isEmptyRequired(R.string.mustFill)) {
-//                return@setOnClickListener
-//            }
-//            val name = binding.etName.textOf()
-//            val photo = binding.ivEditprofilephoto.
-//            viewModel.UpdateProfile(name, photo)
-//        }
-
 
     }
 
@@ -74,7 +63,7 @@ class EditProfileActivity :
 
         //Button Back
         binding.ivBack.setOnClickListener {
-            val intent = Intent(this,HomeFragment::class.java)
+            val intent = Intent(this, HomeFragment::class.java)
             startActivity(intent)
         }
 
@@ -130,19 +119,18 @@ class EditProfileActivity :
 
         if (filePhoto == null) {
             if (name == username) {
-                tos("Photo tidak berubah ")
+                tos("tidak ada data yang berubah")
                 return
             }
             viewModel.updateProfile(name)
 
         } else {
             lifecycleScope.launch {
-                if(photoFile == null) {
-                    tos("FOTO NULL")
-                }else{
-                    compressFile(filePhoto!!)
+                val compressesFile = compressFile(filePhoto!!)
+                Log.d("Compress", "File: $compressesFile")
+                if (compressesFile != null) {
+                    viewModel.updateProfileWithPhoto(name, compressesFile)
                 }
-
             }
         }
 
@@ -183,7 +171,7 @@ class EditProfileActivity :
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -193,9 +181,9 @@ class EditProfileActivity :
             } else {
                 Toast.makeText(this, "Ijin gallery ditolak", Toast.LENGTH_SHORT).show()
             }
-            }
-
         }
+
+    }
 
     // Generate Image File
     private fun generateFileImage(uri: Uri) {
@@ -219,10 +207,6 @@ class EditProfileActivity :
 
             val fos = FileOutputStream(file)
             var bitmap = image
-                Log.d("cekImage","photoFile:$filePhoto")
-            filePhoto = file
-
-
 
             if (orientation != -1 && orientation != 0) {
 
@@ -240,6 +224,7 @@ class EditProfileActivity :
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
             binding.ivEditprofilephoto.setImageBitmap(bitmap)
             filePhoto = file
+            Log.d("checkfile", "file : $filePhoto")
         } catch (e: Exception) {
             e.printStackTrace()
             binding.root.snacked("File ini tidak dapat digunakan")
