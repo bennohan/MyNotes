@@ -77,6 +77,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         }
 
 
+//        viewModel.getUser.observe(viewLifecycleOwner) {
+////                Timber.d("adaData")
+//            binding?.userfr = it
+//        }
+
         lifecycleScope.launch {
             viewModel.getUser.observe(requireActivity()) { data ->
                 data.let {

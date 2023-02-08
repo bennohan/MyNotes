@@ -8,7 +8,6 @@ import com.example.mynotes.api.ApiService
 import com.example.mynotes.base.BaseObserver
 import com.example.mynotes.base.BaseViewModel
 import com.example.mynotes.data.UserDao
-import com.example.mynotes.data.constant.Cons
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -83,25 +82,6 @@ class AddViewModel @Inject constructor(
         )
     }
 
-    fun getToken() {
-        viewModelScope.launch {
-            observer(
-                block = { apiService.getToken() },
-                toast = false,
-                responseListener = object : ApiObserver.ResponseListener {
-                    override suspend fun onSuccess(response: JSONObject) {
-                        val token = response.getString("token")
-                        session.setValue(Cons.TOKEN.API_TOKEN, token)
 
-                    }
-
-                    override suspend fun onError(response: ApiResponse) {
-                        super.onError(response)
-                    }
-                })
-
-        }
-
-    }
 
 }

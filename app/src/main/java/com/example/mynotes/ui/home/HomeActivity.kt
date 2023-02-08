@@ -60,9 +60,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
 
         //AddButton
         binding.btnAdd.setOnClickListener {
-            openActivity<AddActivity> {
-                finish()
-            }
+            openActivity<AddActivity>()
+
         }
 
 //        lifecycleScope.launch {

@@ -49,15 +49,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
 
         //SearchView Function
         binding?.searchView?.doOnTextChanged { text, start, before, count ->
-            if (text.isNullOrEmpty()) {
-//                val filter = noteAll.filter { it?.titile?.contains("$text", true) == true }
-                val filteringData =
-                    noteAll.filter { it?.note?.contains(text.toString(), true) == true }
-                println("Keyword $text Data : $filteringData")
-                Log.d("CekFilter", "Keyword $text Data : $filteringData")
+            if (text!!.isNotEmpty()) {
+                val filter = noteAll.filter { it?.titile?.contains("$text", true) == true }
+//                val filteringData =
+//                    noteAll.filter { it?.note?.contains(text.toString(), true) == true }
+                Log.d("CekFilter", "Keyword $text Data : $filter")
                 note.clear()
 //                note.addAll(filter)
-                filteringData.forEach {
+                filter.forEach {
                     note.add(it)
                 }
                 binding?.rvNote?.adapter?.notifyDataSetChanged()
@@ -95,9 +94,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
     private fun observe() {
         lifecycleScope.launch {
             viewModel.note.observe(requireActivity()) {
-                val shoreName = it.sortedBy { short ->
-                    short.idRoom != 1
-                }
+
                 note.clear()
                 noteAll.clear()
 

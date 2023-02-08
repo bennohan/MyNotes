@@ -33,9 +33,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layou
 
         //Register Button
         binding.btnRegister.setOnClickListener {
-            openActivity<RegisterActivity> {
-                finish()
-            }
+            openActivity<RegisterActivity>()
+
         }
 
         //Login Button

@@ -32,9 +32,8 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
 
         // Button Back
         binding.ivBack.setOnClickListener {
-            openActivity<LoginActivity> {
-                finish()
-            }
+            openActivity<LoginActivity>()
+
         }
 
         //Save Register Button

@@ -61,7 +61,8 @@
             android:background="@drawable/edittext_border"
             android:hint="Masukan Email"
             android:maxLines="1"
-            android:textAlignment="center"
+            android:paddingStart="@dimen/_10sdp"
+            android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_email" />
@@ -91,7 +92,8 @@
             android:hint="Masukan Password"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:textAlignment="center"
+            android:paddingStart="@dimen/_10sdp"
+            android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_password" />
 

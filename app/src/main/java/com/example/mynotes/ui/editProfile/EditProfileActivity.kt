@@ -26,7 +26,6 @@ import com.crocodic.core.helper.DateTimeHelper
 import com.example.mynotes.R
 import com.example.mynotes.base.BaseActivity
 import com.example.mynotes.databinding.ActivityEditProfileBinding
-import com.example.mynotes.ui.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.format
@@ -61,8 +60,9 @@ class EditProfileActivity :
 
         //Button Back
         binding.ivBack.setOnClickListener {
-            val intent = Intent(this, HomeFragment::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, HomeFragment::class.java)
+//            startActivity(intent)
+            onBackPressed()
         }
 
 

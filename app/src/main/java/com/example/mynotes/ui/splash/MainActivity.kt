@@ -28,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
             if (userLogin == "Login"){
                 openActivity<HomeActivity>()
             }else{
-                openActivity<LoginActivity> {  }
+                openActivity<LoginActivity>()
             }
             finish()
         }

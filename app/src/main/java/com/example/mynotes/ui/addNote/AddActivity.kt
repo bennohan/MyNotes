@@ -42,12 +42,11 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.acti
         val textView: TextView = findViewById(R.id.tvDate)
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val dateString = simpleDateFormat.format(note?.updatedAt ?: 9897546853323L)
-        textView.text = String.format("Date: %s", dateString)
+       binding.tvDate.text = String.format("Date: %s", dateString)
 
         //Back Button
         binding.ivBack.setOnClickListener {
             openActivity<HomeActivity> {
-                finish()
             }
         }
 
