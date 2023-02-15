@@ -46,14 +46,13 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.acti
 
         //Back Button
         binding.ivBack.setOnClickListener {
-            openActivity<HomeActivity> {
-            }
+            onBackPressed()
         }
 
         //Delete Button
         binding.btnDelete.setOnClickListener {
-            note?.id?.let { id -> viewModel.deleteNote(id) }
-
+            note?.id?.let { id -> viewModel.deleteNote(id)
+            openActivity<HomeActivity>()}
         }
 
 
@@ -72,10 +71,12 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.acti
             }
             if (oldTitle.isNullOrEmpty() && oldContent.isNullOrEmpty()) {
                 viewModel.createNote(title, content)
+                openActivity<HomeActivity>()
             } else {
                 if (note != null) {
                     if (oldTitle != title || oldContent != content) {
                         viewModel.updateNote(note!!.id.toString(), title, content)
+                        openActivity<HomeActivity>()
                     }
                 }
 

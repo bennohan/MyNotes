@@ -50,7 +50,6 @@ class AddViewModel @Inject constructor(
             toast = false,
             responseListener = object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
-
                     _apiResponse.send(ApiResponse().responseSuccess(" Note Updated"))
                 }
 

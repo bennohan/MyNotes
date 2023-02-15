@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_25sdp"
             android:text="Name"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +56,7 @@
         <EditText
             android:id="@+id/et_name"
             android:layout_width="@dimen/_270sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:background="@drawable/edittext_border"
             android:hint="Name"
@@ -80,13 +80,13 @@
         <EditText
             android:id="@+id/et_email"
             android:layout_width="@dimen/_270sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:background="@drawable/edittext_border"
             android:hint="Email"
-            android:paddingStart="@dimen/_10sdp"
             android:inputType="textEmailAddress"
             android:maxLines="1"
+            android:paddingStart="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,20 +103,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
-        <EditText
-            android:id="@+id/et_password"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textView_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="@dimen/_270sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/edittext_border"
-            android:hint="password"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:paddingStart="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_password" />
+            app:layout_constraintTop_toBottomOf="@id/tv_password"
+            app:passwordToggleEnabled="true"
+            tools:layout_editor_absoluteY="80dp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             android:id="@+id/tv_confirmPw"
@@ -127,22 +135,44 @@
             android:text="Confirm Password"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_password" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_password" />
 
-        <EditText
-            android:id="@+id/et_confirmPw"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textView_confirm"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="@dimen/_270sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/edittext_border"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:paddingStart="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_confirmPw" />
+            app:layout_constraintTop_toBottomOf="@id/tv_confirmPw"
+            app:passwordToggleEnabled="true"
+            tools:layout_editor_absoluteY="80dp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_confirmPw"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/et_confirmPw"-->
+        <!--            android:layout_width="@dimen/_270sdp"-->
+        <!--            android:layout_height="@dimen/_30sdp"-->
+        <!--            android:layout_marginTop="@dimen/_15sdp"-->
+        <!--            android:background="@drawable/edittext_border"-->
+        <!--            android:hint="Confirm Password"-->
+        <!--            android:inputType="textPassword"-->
+        <!--            android:maxLines="1"-->
+        <!--            android:paddingStart="@dimen/_10sdp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintHorizontal_bias="0.6"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_confirmPw" />-->
 
         <Button
             android:id="@+id/btnSave"
@@ -154,7 +184,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.511"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_confirmPw" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_confirm" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

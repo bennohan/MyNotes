@@ -38,6 +38,8 @@ class RegisterViewModel @Inject constructor(
             responseListener = object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
                     _apiResponse.send(ApiResponse().responseSuccess("Berhasil Register"))
+                    val token = response.getString("token")
+                    session.setValue(Cons.TOKEN.API_TOKEN, token)
 
                 }
                 override suspend fun onError(response: ApiResponse) {

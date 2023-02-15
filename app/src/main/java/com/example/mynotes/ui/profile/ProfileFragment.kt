@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
@@ -56,8 +55,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         super.onViewCreated(view, savedInstanceState)
 
         //Button , TextView
-        val btnEditProfile = view.findViewById<Button>(R.id.btnEditProfile)
-        val btnLogout = view.findViewById<Button>(R.id.btnLogout)
+        val btnEditProfile = view.findViewById<View>(R.id.btnEditProfile)
+        val btnLogout = view.findViewById<View>(R.id.btnLogout)
         val tvnamePF = view.findViewById<TextView>(R.id.tv_namePF)
         val tvemailPF = view.findViewById<TextView>(R.id.tv_emailPF)
         val ivprofilePF = view.findViewById<ImageView>(R.id.iv_profilePF)
@@ -70,7 +69,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         }
 
         //Logout Button
-        btnLogout.setOnClickListener {
+            btnLogout?.setOnClickListener {
             viewModel.logout {
                 activity?.openActivity<LoginActivity>()
             }
