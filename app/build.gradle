@@ -7,7 +7,6 @@ plugins {
     id 'com.google.firebase.crashlytics'
     id 'kotlin-parcelize'
 
-
 }
 
 
@@ -39,7 +38,7 @@ android {
         jvmTarget = '1.8'
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
         dataBinding = true
     }

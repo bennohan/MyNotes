@@ -82,44 +82,46 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInput_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginStart="28dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="28dp"
+            android:background="@drawable/edittext_border"
+            android:hint="Masukan Password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            app:passwordToggleEnabled="true"
-            tools:layout_editor_absoluteY="230dp">
+            app:passwordToggleEnabled="true">
 
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#00000000"
                 android:inputType="textPassword"
-                android:maxLines="1"/>
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-<!--        <EditText-->
-<!--            android:id="@+id/et_password"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/_30sdp"-->
-<!--            android:layout_margin="@dimen/_24sdp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginEnd="28dp"-->
-<!--            android:autofillHints="password"-->
-<!--            android:background="@drawable/edittext_border"-->
-<!--            android:hint="Masukan Password"-->
-<!--            android:inputType="textPassword"-->
-<!--            android:maxLines="1"-->
-<!--            android:paddingStart="@dimen/_10sdp"-->
-<!--            android:textAlignment="textStart"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tv_password" />-->
+        <!--        <EditText-->
+        <!--            android:id="@+id/et_password"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="@dimen/_30sdp"-->
+        <!--            android:layout_margin="@dimen/_24sdp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:layout_marginEnd="28dp"-->
+        <!--            android:autofillHints="password"-->
+        <!--            android:background="@drawable/edittext_border"-->
+        <!--            android:hint="Masukan Password"-->
+        <!--            android:inputType="textPassword"-->
+        <!--            android:maxLines="1"-->
+        <!--            android:paddingStart="@dimen/_10sdp"-->
+        <!--            android:textAlignment="textStart"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_password" />-->
 
         <Button
             android:id="@+id/btn_login"
@@ -128,21 +130,33 @@
             android:layout_marginTop="@dimen/_24sdp"
             android:backgroundTint="@color/mainColor"
             android:text="Login"
+            android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInput_password" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_register"
             android:layout_width="@dimen/_270sdp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="#FFFFFF"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:backgroundTint="@color/white"
             android:text="Register"
+            android:textAllCaps="false"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+
+        <!--        <Button-->
+        <!--            android:layout_width="@dimen/_270sdp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            -->
+        <!--            android:backgroundTint="#FFFFFF"-->
+        <!--            android:text="Register"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/btn_login" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

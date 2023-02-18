@@ -50,7 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
         //SearchView Function
         binding?.searchView?.doOnTextChanged { text, start, before, count ->
             if (text!!.isNotEmpty()) {
-                val filter = noteAll.filter { it?.titile?.contains("$text", true) == true }
+                val filter = noteAll.filter { it?.title?.contains("$text", true) == true }
 //                val filteringData =
 //                    noteAll.filter { it?.note?.contains(text.toString(), true) == true }
                 Log.d("CekFilter", "Keyword $text Data : $filter")

@@ -25,6 +25,7 @@ import com.crocodic.core.extension.*
 import com.crocodic.core.helper.DateTimeHelper
 import com.example.mynotes.R
 import com.example.mynotes.base.BaseActivity
+import com.example.mynotes.data.User
 import com.example.mynotes.databinding.ActivityEditProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
@@ -44,6 +45,7 @@ class EditProfileActivity :
 
     private var username: String? = null
     private var filePhoto: File? = null
+    private var user: User? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +55,7 @@ class EditProfileActivity :
         initClick()
         observe()
 
-
+        binding.user = user
     }
 
     private fun initClick() {

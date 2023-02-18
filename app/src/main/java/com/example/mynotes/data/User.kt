@@ -27,21 +27,5 @@ data class User(
     @SerializedName("photo")
     val photo : String?
 ) : Parcelable {
-//    companion object {
-//        @JvmStatic
-//        @BindingAdapter(value = ["image", "imageThumbnail"], requireAll = false)
-//        fun loadImage(imageView: ImageView,image: String?){
-//            image.let {
-//                Glide
-//                    .with(imageView.context)
-//                    .load(image)
-//                    .placeholder(R.drawable.ic_baseline_person_24)
-////                    .error(R.drawable.placeholder)
-////                    .thumbnail(thumbnail)
-//                    .apply(RequestOptions.centerCropTransform())
-//                    .into(imageView)
-//            }
-//        }
-//    }
 }
 

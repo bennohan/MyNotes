@@ -29,6 +29,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
         super.onCreate(savedInstanceState)
 
         tokenAPI()
+        observe()
 
         // Button Back
         binding.ivBack.setOnClickListener {
@@ -49,6 +50,10 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
             viewModel.register(name,email,password,confirmPassword)
         }
 
+
+    }
+
+    private fun observe(){
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {

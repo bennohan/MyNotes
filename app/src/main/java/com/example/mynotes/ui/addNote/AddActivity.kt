@@ -32,12 +32,12 @@ class AddActivity : BaseActivity<ActivityAddBinding, AddViewModel>(R.layout.acti
 
         note = intent.getParcelableExtra(Cons.NOTE.NOTE)
 
-
         binding.data = note
 
-        oldTitle = note?.titile
+        oldTitle = note?.title
         oldContent = note?.note
 
+        //Date
         title = "KotlinApp"
         val textView: TextView = findViewById(R.id.tvDate)
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")

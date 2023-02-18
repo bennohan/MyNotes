@@ -19,7 +19,7 @@ data class Note(
     val id: String?,
     @Expose
     @SerializedName("title")
-    val titile : String?,
+    val title : String?,
     @Expose
     @SerializedName("content")
     val note: String?,
